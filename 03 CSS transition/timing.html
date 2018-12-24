@@ -1,0 +1,36 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timing Exersice</title>
+    <style>
+        .box {
+            background: #9b59b6;
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            text-align: center;
+            color: white;
+            font-size: 17px;
+            border-radius: 20px;
+        }
+        .box:hover {
+            transform: translateX(300px);
+        }
+        .animated {
+            transition-property: transform;
+            transition-duration: 2s;
+            transition-timing-function: ease-in;
+            /* transition: transform 2s ease-in, background-color 1s ; -> shorthand */
+        }
+    </style>
+</head>
+
+<body>
+    <p class="box">BORING</p>
+    <p class="animated box">ANIMATED</p>
+</body>
+
+</html>
