@@ -1,0 +1,128 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sun set and rise</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50;
+            animation: sky 15s infinite linear;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 800px;
+        }
+
+        .grass {
+            background-color: darkslategray;
+            height: 600px;
+            width: 100%;
+            position: absolute;
+            animation: grass_color 15s infinite linear;
+        }
+
+        .sun {
+            background-color: #f1c40f;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            animation: set_rise 15s infinite linear;
+        }
+
+        @keyframes sky {
+            0% {
+                background-color: #2c3e50;
+            }
+
+            15% {
+                background-color: pink;
+            }
+
+            30% {
+                background-color: lightskyblue;
+            }
+
+            50% {
+                background-color: lightskyblue;
+            }
+
+            70% {
+                background-color: pink;
+            }
+
+            85% {
+                background-color: #2c3e50;
+            }
+        }
+
+        @keyframes set_rise {
+            0% {
+                transform: translate(-200px, 200px);
+                background: #d35400;
+            }
+
+            20% {
+                transform: translate(100px, 0px);
+                background: #f1c40f;
+            }
+
+            40% {
+                transform: translate(350px, -100px);
+            }
+
+            60% {
+                transform: translate(700px, 0px);
+                background: #f1c40f;
+            }
+
+            80% {
+                transform: translate(1000px, 200px);
+                background: #e74c3c;
+            }
+
+            100% {
+                transform: translate(-200px, 200px);
+            }
+        }
+
+        @keyframes grass_color {
+            0% {
+                background-color: darkslategray;
+            }
+
+            15% {
+                background-color: darkolivegreen;
+            }
+
+            30% {
+                background-color: darkgreen;
+            }
+
+            50% {
+                background-color: darkgreen;
+            }
+
+            70% {
+                background-color: darkolivegreen;
+            }
+
+            85% {
+                background-color: darkslategray;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sun"></div>
+    </div>
+    <div class="grass"></div>
+</body>
+
+</html>
