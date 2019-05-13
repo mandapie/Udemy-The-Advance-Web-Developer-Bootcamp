@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Holy Grail Layout</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            height: 10%;
+            border: 1px solid black;
+            background-color: green;
+            display: flex;
+            justify-content: space-between;
+        }
+        .container {
+            display: flex;
+        }
+        .main {
+            width: 80%;
+            height: 80%;
+            min-height: 600px;
+            border: 1px solid black;
+        }
+        .side {
+            width: 10%;
+            border: 1px solid black;
+            background-color: grey;
+            
+        }
+        .aside {
+            width: 10%;
+            border: 1px solid black;
+            background-color: skyblue;
+        }
+        footer {
+            height: 10%;
+            border: 1px solid black;
+            background-color: green;
+        }
+        @media screen and (max-width: 640px) {
+            .container {
+                flex-direction: column;
+            }
+            .main {
+                width: 100%;
+                order: -1;
+            }
+            .side {
+                width: 100%;
+                order: 0;
+            }
+            .aside {
+                width: 100%;
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>Nav left</nav>
+        <nav>Nav right</nav>
+    </header>
+    <div class="container">
+        <section class="side">Side nav</section>
+        <section class="main">Main content</section>
+        <section class="aside">Aside</section>
+    </div>
+    <footer>Footer</footer>
+</body>
+</html>
