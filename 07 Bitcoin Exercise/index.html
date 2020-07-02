@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bitcoin Exercise</title>
+</head>
+<body>
+    <h1>Bitcoin Price: <span id="rate"></span></h1>
+    <button id="fetchButton">Fetch</button>
+</body>
+
+<script>
+ var btn = document.getElementById("fetchButton");
+ var value = document.getElementById("rate");
+ var currency = "EUR";
+ var uri = "https://api.coindesk.com/v1/bpi/currentprice.json";
+
+ btn.addEventListener("click", function() {
+     var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var result = JSON.parse(xhr.responseText);
+            value.innerText = result.bpi[currency].rate + " " + currency;
+        }
+    }
+
+     xhr.open("GET", uri);
+     xhr.send();
+ });
+</script>
+</html>
