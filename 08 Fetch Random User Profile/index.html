@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Random User Profile</title>
+</head>
+
+<body>
+    <button id="genBtn">Generate</button>
+    <br><br>
+    <div>
+        <img id="profile" />
+        <div>First Name: <span id="fName"></span></div>
+        <div>Last Name: <span id="lName"></span></div>
+        <div>Email: <span id="email"></span></div>
+        <div>City: <span id="city"></span></div>
+    </div>
+
+    <script>
+        var btn = document.getElementById("genBtn");
+        var url = "https://randomuser.me/api/";
+
+        btn.addEventListener("click", function () {
+            fetch(url)
+                .then(ErrorHandler)
+                .then(ParseJson)
+                .then(UpdateProfile)
+                .catch();
+        });
+
+        function ErrorHandler(res) {
+            if (!res.ok) {
+                throw Error(res.status);
+            }
+            return res;
+        }
+
+        function ParseJson(res) {
+            return res.json().then(function (data) {
+                return data.results[0];
+            });
+        }
+
+        function UpdateProfile(data) {
+            document.getElementById("profile").src = data.picture.large;
+            document.getElementById("fName").innerText = data.name.first;
+            document.getElementById("lName").innerText = data.name.last;
+            document.getElementById("email").innerText = data.email;
+            document.getElementById("city").innerText = data.location.city;
+        }
+
+        function ExceptionHandler(err) {
+            console.log(err);
+        }
+    </script>
+</body>
+
+</html>
