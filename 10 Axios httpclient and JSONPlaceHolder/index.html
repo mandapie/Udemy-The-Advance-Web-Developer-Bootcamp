@@ -1,0 +1,158 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios and JsonPlaceHolder</title>
+</head>
+
+<body>
+    <div>Pick a url type and it will return a random result of its type</div>
+    <div>
+        <input type="radio" name="type" value="posts" /> Post
+        <input type="radio" name="type" value="comments" /> Comment
+        <input type="radio" name="type" value="albums" /> Album
+        <input type="radio" name="type" value="photos" /> Photo
+        <input type="radio" name="type" value="todos" /> Todo
+        <input type="radio" name="type" value="users" /> User
+        <br><br>
+        <button id="btn">Call JsonPlaceHolder</button>
+    </div>
+
+    <div id="result">
+        <div id="postId"></div>
+        <div id="albumId"></div>
+        <div id="userId"></div>
+        <div id="id"></div>
+        <div id="title"></div>
+        <div id="name"></div>
+        <div id="username"></div>
+        <div id="email"></div>
+        <div id="address">
+            <div id="street"></div>
+            <div id="suite"></div>
+            <div id="city"></div>
+            <div id="zipcode"></div>
+        </div>
+        <div id="phone"></div>
+        <div id="website"></div>
+        <div id="company">
+            <div id="name"></div>
+            <div id="bs"></div>
+            <div id="catchPhrase"></div>
+        </div>
+        <div id="body"></div>
+        <div id="completed"></div>
+        <img id="url" />
+        <img id="thumbnailUrl" />
+        <div id="err"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+        var btn = document.getElementById("btn");
+        var selected = null;
+        var imgs = document.getElementById("result").getElementsByTagName("img");
+        var divs = document.getElementById("result").getElementsByTagName("div");
+        var addressDivs = document.getElementById("address").getElementsByTagName("div");
+        var companyDivs = document.getElementById("company").getElementsByTagName("div");
+
+        var url = "https://jsonplaceholder.typicode.com/";
+        var type = "";
+        var id = 0;
+
+        btn.addEventListener("click", function () {
+            var selected = document.querySelector("input[name=type]:checked");
+
+            if (selected) {
+                type = selected.value;
+            }
+
+            switch (type) {
+                case "posts":
+                    id = Math.floor((Math.random() * 100) + 1); // only has 100 posts
+                    break;
+                case "comments":
+                    id = Math.floor((Math.random() * 500) + 1); // only has 500 comments
+                    break;
+                case "albums":
+                    id = Math.floor((Math.random() * 100) + 1); // only has 100 albums
+                    break;
+                case "photos":
+                    id = Math.floor((Math.random() * 5000) + 1); // only has 5000 photos
+                    break;
+                case "todos":
+                    id = Math.floor((Math.random() * 200) + 1); // only has 200 todos
+                    break;
+                case "users":
+                    id = Math.floor((Math.random() * 10) + 1); // only has 10 users
+                    break;
+                default:
+                    document.getElementById("err").innerHTML = "Please select an opiton!";
+            }
+
+            if (id > 0) {
+                axios.get(url + type, {
+                    params: {
+                        id: id
+                    }
+                }).then(function (res) {
+                    ClearResult();
+                    LoadResult(res);
+                }).catch(function (err) {
+                    document.getElementById("err").innerText = err;
+                });
+            }
+        });
+
+        function ClearResult() {
+            for (i = 0; i < divs.length; i++) {
+                if (divs[i].id === "company") {
+                    for (j = 0; j < companyDivs.length; j++) {
+                        companyDivs[j].innerText = "";
+                    }
+                }
+                else if (divs[i].id === "address") {
+                    for (j = 0; j < addressDivs.length; j++) {
+                        addressDivs[j].innerText = "";
+                    }
+                }
+                else {
+                    divs[i].innerText = "";
+                }
+            }
+
+            for (i = 0; i < imgs.length; i++) {
+                imgs[i].src = "";
+            }
+        }
+
+        function LoadResult(res) {
+            var p = res.data[0];
+
+            for (var key in p) {
+                if (p.hasOwnProperty(key)) {
+                    if (key === "address" || key === "company") {
+                        var q = p[key];
+
+                        for (var key2 in q) {
+                            if (q.hasOwnProperty(key2) && key2 !== "geo") {
+                                document.getElementById(key2).innerHTML = key2 + " = " + q[key2];
+                            }
+                        }
+                    }
+                    else {
+                        if (key === "url" || key === "thumbnailUrl") {
+                            document.getElementById(key).src = p[key];
+                        }
+                        else {
+                            document.getElementById(key).innerHTML = key + " = " + p[key];
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
